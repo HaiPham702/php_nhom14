@@ -1,0 +1,49 @@
+li{
+    padding-bottom: 0;
+ }
+
+ #menu {
+    position: relative;
+    margin-bottom: 65px;
+ }
+
+ table {
+    width: 100%;
+ }
+
+ .toolbar {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+ }
+
+  /* controll search  */
+  .search {
+    padding: 0 8px;
+    border: 1px solid;
+    display: flex;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+
+  .search input {
+    flex: 1;
+    outline: none;
+    border: none;
+    height: 32px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* combobox */
+  select {
+    height: 36px;
+    padding: 0 8px;
+    border-radius: 10px;
+    min-width: 150px;
+  }

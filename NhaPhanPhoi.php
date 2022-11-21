@@ -44,7 +44,7 @@
             <div id="content">
 			<div>
 				<table cellpadding="5">
-					<tr style="background-color: aqua; color:black;">
+					<tr style="background-color: #bcbcbc; color:black;">
 						<td>Column 1</td>
 						<td>Column 2</td>
 						<td>Column 3</td>

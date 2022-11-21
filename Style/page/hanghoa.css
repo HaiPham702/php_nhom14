@@ -1,0 +1,17 @@
+.container-product-page {
+    height:  calc(100% - 140px);
+    padding: 0 24px;
+    
+}
+.col-description {
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.col-product-name {
+    min-width: 270px;
+}

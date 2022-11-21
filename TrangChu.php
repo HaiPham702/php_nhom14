@@ -46,7 +46,7 @@
             <div id="content">
 			<div>
 				<table cellpadding="5">
-					<tr style="background-color: aqua; color:black;">
+					<tr style="background-color: #bcbcbc; color:black;">
 						<td>Tên tài khoản</td>
 						<td>Mật khẩu</td>
 						<td>Họ và tên</td>
