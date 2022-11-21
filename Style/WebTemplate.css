@@ -8,14 +8,15 @@
 	height: 100%;
 	z-index: 1;
 }
-ul{
+#menu ul{
 	display: flex;
 	justify-content: center;
 }
-li{
+#menu li{
 	padding: 30px;
 	list-style-type: none;
 	font-size: 20px;
+	line-height: 1;
 }
 #menu{
 	position: fixed;
@@ -29,6 +30,12 @@ div ul li a{
 	text-decoration: none;
 	color: white;
 }
+
+a:hover {
+	text-decoration: none;
+	color: white;
+}
+
 #content{
 	position: relative;
 	top: 10%;

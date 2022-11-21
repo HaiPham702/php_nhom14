@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./Style/style.css">
     <link rel="stylesheet" href="./Style//page/index.css">
     <link rel="stylesheet" href="./Style/page/hanghoa.css">
+    <link rel="stylesheet" href="./bootstrap//css//bootstrap.min.css">
 
     <title>Home</title>
     <?php
@@ -24,12 +25,27 @@
         die("Connection failed: " . mysqli_connect_error());
         exit();
     }
-    $sql = "SELECT * FROM product p INNER JOIN unit u ON p.UnitId = u.Id INNER JOIN stock s ON p.StockId = s.Id INNER JOIN suplier s1 ON p.SuplierId = s1.Id";
+
+   $textSearch = $_GET['textSearch'] ?? '';
+
+   $limit = $_GET['limit'] ?? '20';
+
+   $pageIndex = (int)$_GET['pageIndex'] ?? 0;
+
+    $sql = "SELECT * FROM product p INNER JOIN unit u ON p.UnitId = u.Id  INNER JOIN stock s ON p.StockId = s.Id INNER JOIN suplier s1 ON p.SuplierId = s1.Id WHERE p.ProductName LIKE '%" . $textSearch . "%' LIMIT " . $limit . " OFFSET " . $limit * $pageIndex . ";";
+
+
     $result = mysqli_query($conn, $sql);
 
-    // Lấy danh sách 
+    // Lấy danh sách kho
     $sqlGetStock = "SELECT * FROM stock";
     $listStock = mysqli_query($conn, $sqlGetStock);
+
+
+    // Lấy danh sách nhà cung cấp
+
+    $sqlGetSuplier = "SELECT * FROM suplier";
+    $listSuplier = mysqli_query($conn, $sqlGetSuplier);
 
     mysqli_close($conn);
     ?>
@@ -55,25 +71,43 @@
         </div>
         <!-- content -->
         <div class="container-product-page">
-            <div class="toolbar">
-                <div class="search">
-                    <input type="text" name="" id="" placeholder="Nhập để tìm kiếm">
-                    <img src="./Images/icons/magnifying-glass-solid.svg" class="icon">
-                </div>
-
-                <div class="group-control">
-                    <div class="combobox-control">
-                        <select name="" id="">
-                            <?php
-                            while ($stock = mysqli_fetch_assoc($listStock)) {
-                            ?>
-                                <option value='<?php echo $stock['Id'];  ?>'><?php echo $stock['StockName'];  ?></option>
-                            <?php } ?>
-                        </select>
+                <form action="" method="GET" class="toolbar">
+                    <div class="search">
+                        <input class="c" type="text" name="textSearch" id="" placeholder="Nhập tên sản phẩm" value="<?php echo $textSearch ?>">
+                        <img src="./Images/icons/magnifying-glass-solid.svg" class="icon">
                     </div>
 
-                </div>
-            </div>
+                    <div class="group-control">
+                        <!-- Nhà cung cấp -->
+                        <div class="combobox-control" style="margin-right: 8px;">
+                            <div class="combobox-lable">
+                                Kho hàng
+                            </div>
+                            <select name="" id="">
+                                <?php
+                                while ($stock = mysqli_fetch_assoc($listStock)) {
+                                ?>
+                                    <option value='<?php echo $stock['Id'];  ?>'><?php echo $stock['StockName'];  ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <!-- Kho hàng -->
+                        <div class="combobox-control" style="margin-right: 8px;">
+                            <div class="combobox-lable">
+                                Nhà cung cấp
+                            </div>
+                            <select name="" id="">
+                                <?php
+                                while ($suplier = mysqli_fetch_assoc($listSuplier)) {
+                                ?>
+                                    <option value='<?php echo $suplier['Id'];  ?>'><?php echo $suplier['SuplierName'];  ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <input type="submit" value="Tìm kiếm" name="search">                
+                    </div>
+                </form>
             <!-- table -->
             <div>
                 <table cellpadding="5">
@@ -116,8 +150,31 @@
         </div>
     </div>
 
+    <div class="paging">
+    <nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+    </div>
+
     </div>
 </body>
+<script src="./bootstrap//js//bootstrap.min.js"></script>
+<script src="./js//jquery.js"></script>
 <script src="./js//hanghoa.js"></script>
 
 </html>

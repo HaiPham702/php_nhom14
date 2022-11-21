@@ -1,3 +1,9 @@
 .active {
     color: #a7c957;
 }
+
+/* common class */
+
+.mr-1 {
+    margin-right: 4px;
+}
