@@ -10,11 +10,11 @@
 	<?php
         session_start();
             $_SESSION = session_id();
-//            require __DIR__ . '.\common\configdb.php';
+            require __DIR__ . '.\common\configdb.php';
 //            $servername = "localhost";
-            $database = "qlkho";
-            $username = "root";
-            $password = "v!nhMysqlpw$";
+//            $database = "qlkho";
+//            $username = "root";
+//            $password = "v!nhMysqlpw$";
             // Create connection
             $conn = mysqli_connect($servername, $username, $password, $database);
             mysqli_set_charset($conn, "utf8");
