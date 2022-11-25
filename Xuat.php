@@ -10,11 +10,11 @@
 	<?php
         session_start();
             $_SESSION = session_id();
-              require __DIR__ . '.\common\configdb.php';
-//            $servername = "localhost";
-//            $database = "qlkho";
-//            $username = "root";
-//            $password = "v!nhMysqlpw$";
+            require __DIR__ . '.\common\configdb.php';
+	//$servername = "localhost";
+          //  $database = "qlkho";
+            //$username = "root";
+            //$password = "v!nhMysqlpw$";
             // Create connection
             $conn = mysqli_connect($servername, $username, $password, $database);
             mysqli_set_charset($conn, "utf8");
@@ -23,8 +23,7 @@
                 die("Connection failed: " . mysqli_connect_error());
                 exit();
             }
-            $sql = "select * from receipt where ReceiptType=0;";
-            $result = mysqli_query($conn, $sql);
+            
 //            if(isset($_POST['btsave'])){
 //                $name = $_POST['txtsuppliername'];
 //                $addr = $_POST['txtaddress'];
@@ -38,6 +37,14 @@
 //                    echo '<script language ="javascript">alert("Insert failed");</script>';
 //                }
 //            }
+                $sql = "select * from receipt where ReceiptType=1;";
+                $result = mysqli_query($conn, $sql);
+            if(isset($_POST['ipsearch'])||isset($_POST['btsearch'])){
+                $id = $_POST['ipsearch'];
+                $sql = "select * from receipt where Id = '".$id."';";
+                $result = mysqli_query($conn, $sql);
+                header("location: Xuat.php");
+            }
             mysqli_close($conn);
     ?>
 </head>
@@ -54,7 +61,7 @@
       					<label for="txtsuppliername">Supplier Name</label>
     			</td>
     				<td>
-      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate"></div>
+                                    <div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate" required></div>
     				</td>
   				</tr>
     			<tr>
@@ -62,7 +69,7 @@
       					<label for="txtaddress">Address</label>
     				</td>
     				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate"></div>
+      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate" required></div>
     				</td>
    	 			</tr>
     			<tr>
@@ -70,7 +77,7 @@
       					<label for="txtphonenumber">Phone Number</label>
     			</td>
     				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate"></div>
+       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate" required></div>
     				</td>
     			</tr>
     			<tr>
@@ -78,7 +85,7 @@
       					<label for="txtemail">Email</label>
     				</td>
     				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate"></div>
+       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate" required></div>
     				</td>
   				</tr>
 
@@ -99,13 +106,13 @@
     	<div class="close-btn" onclick="togglePopupEdit()">×</div>     
 		<h1>Edit record</h1> 
 		<form action="" method="post" name="formedit">
-			<table cellpadding="10">
+                    <table cellpadding="10" style="border: none">
   				<tr>
     				<td>
       					<label for="txtsuppliername">Supplier Name</label>
     			</td>
     				<td>
-      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate"></div>
+      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate" required></div>
     				</td>
   				</tr>
     			<tr>
@@ -113,7 +120,7 @@
       					<label for="txtaddress">Address</label>
     				</td>
     				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate"></div>
+      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate" required></div>
     				</td>
    	 			</tr>
     			<tr>
@@ -121,7 +128,7 @@
       					<label for="txtphonenumber">Phone Number</label>
     			</td>
     				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate"></div>
+       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate" required></div>
     				</td>
     			</tr>
     			<tr>
@@ -129,7 +136,7 @@
       					<label for="txtemail">Email</label>
     				</td>
     				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate"></div>
+       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate" required></div>
     				</td>
   				</tr>
 			</table>
@@ -164,7 +171,9 @@
             <div id="content">
             	<div id="searcharea">
             		<div id="search">
+                            <form action="Xuat.php" method="post">
             		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id"><input id="buttonsearch" type="submit" name="btsearch" value="Search">
+                            </form>
             		</div>
             	</div>
 			<div id="item">
@@ -174,7 +183,9 @@
                                             <td><label>ID</label></td>
                                             <td><label>Stock ID</label></td>
                                             <td><label>Employee ID</label></td>
+                                            <td><label>Stock Name</label></td>
                                             <td><label>Receipt Type</label></td>
+                                            <td><label>Title</label></td>
                                             <td><label>Content</label></td>
                                             <td><label>Is Appect</label></td>
                                             <td><label>Create Date</label></td>
@@ -202,7 +213,7 @@
                                               ?></td>
                                             <td><?php echo $row['CreateDate'] ?></td>
                                             <td>
-                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
+                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupEdit()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
                                             </td>
 					</tr>
                                         <?php }?>
