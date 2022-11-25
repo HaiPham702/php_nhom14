@@ -99,7 +99,7 @@
     	<div class="close-btn" onclick="togglePopupEdit()">×</div>     
 		<h1>Edit record</h1> 
 		<form action="" method="post" name="formedit">
-			<table cellpadding="10">
+                    <table cellpadding="10" style="border: none">
   				<tr>
     				<td>
       					<label for="txtsuppliername">Supplier Name</label>
@@ -133,8 +133,8 @@
     				</td>
   				</tr>
 			</table>
-			<input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save">
 		</form>
+                <input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save" onclick="redirect()">
    		</div>
   	</div>
 	<script>
@@ -189,7 +189,7 @@
                                             <td><?php echo $row['PhoneNumber'] ?></td>
                                             <td><?php echo $row['Email'] ?></td>
                                             <td>
-                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
+                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupEdit()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
                                             </td>
 					</tr>
                                         <?php }?>
