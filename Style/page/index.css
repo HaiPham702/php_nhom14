@@ -64,3 +64,9 @@ li{
     cursor: pointer;
     background: #a7c957;
   }
+
+  .paging {
+    display: flex;
+    justify-content: end;
+    padding-right: 24px;
+  }

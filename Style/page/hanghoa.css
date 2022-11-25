@@ -1,3 +1,7 @@
+#menu {
+    height: 74px;
+}
+
 .container-product-page {
     height:  calc(100% - 180px);
     padding: 0 24px;

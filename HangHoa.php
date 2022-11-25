@@ -28,12 +28,15 @@
 
    $textSearch = $_GET['textSearch'] ?? '';
 
-   $limit = $_GET['limit'] ?? '20';
+   $limit = 20;
 
    $pageIndex = (int)$_GET['pageIndex'] ?? 0;
 
     $sql = "SELECT * FROM product p INNER JOIN unit u ON p.UnitId = u.Id  INNER JOIN stock s ON p.StockId = s.Id INNER JOIN suplier s1 ON p.SuplierId = s1.Id WHERE p.ProductName LIKE '%" . $textSearch . "%' LIMIT " . $limit . " OFFSET " . $limit * $pageIndex . ";";
 
+    $sqlTotal = "SELECT COUNT(*) AS Total FROM product p INNER JOIN unit u ON p.UnitId = u.Id  INNER JOIN stock s ON p.StockId = s.Id INNER JOIN suplier s1 ON p.SuplierId = s1.Id WHERE p.ProductName LIKE '%" . $textSearch . "%' LIMIT " . $limit . " OFFSET " . $limit * $pageIndex . ";";
+    
+    $total = mysqli_fetch_array(mysqli_query($conn, $sqlTotal))[0] ;
 
     $result = mysqli_query($conn, $sql);
 
@@ -48,6 +51,9 @@
     $listSuplier = mysqli_query($conn, $sqlGetSuplier);
 
     mysqli_close($conn);
+
+
+   
     ?>
 </head>
 
@@ -156,6 +162,13 @@
     <li class="page-item disabled">
       <span class="page-link">Previous</span>
     </li>
+
+                        <?php
+                                for ($i = 1; $i <= $total; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='#'>".$i."</a></li>";
+                                  };
+                        ?>
+
     <li class="page-item"><a class="page-link" href="#">1</a></li>
     <li class="page-item active">
       <span class="page-link">
@@ -167,9 +180,10 @@
     <li class="page-item">
       <a class="page-link" href="#">Next</a>
     </li>
+    
   </ul>
 </nav>
-    </div>
+    </div class='E'>
 
     </div>
 </body>
