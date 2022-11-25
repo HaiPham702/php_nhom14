@@ -32,9 +32,9 @@
                     <li><a href="TrangChu.php"><img src="Images\Logo.PNG" alt="Company's Logo"></a></li>
                     <li><a href="TrangChu.php"><i class="fa fa-home"></i> Home</a></li>
                     <li><a href="NhaPhanPhoi.php" class="active"><i class="fa fa-industry"></i> Supplier</a></li>
-                    <li><a href="HangHoa.php"><i class="fa fa-clipboard-list"></i> Products</a></li>                    <li><a href="Kho.php"><i class="fa fa-arrow-alt-circle-down"></i> Warehouse</a></li>
-
-                    <li><a href="Nhap.php"><i class="fa fa-arrow-alt-circle-down"></i> Import</a></li>
+                    <li><a href="HangHoa.php"><i class="fa fa-clipboard-list"></i> Products</a></li>
+			<li><a href="Kho.php"><i class="fa fa-arrow-alt-circle-down"></i> Warehouse</a></li>
+			<li><a href="Nhap.php"><i class="fa fa-arrow-alt-circle-down"></i> Import</a></li>
                     <li><a href="Xuat.php"><i class="fa fa-arrow-alt-circle-up"></i> Export</a></li>
                     <li><a href="NhanVien.php"><i class="fa fa-user"></i> Employee</a></li>
                     <li><a href="ThongKe.php"><i class="fa fa-chart-line"></i> Analyze</a></li>
