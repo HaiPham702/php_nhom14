@@ -164,7 +164,7 @@
             <div id="content">
             	<div id="searcharea">
             		<div id="search">
-            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id"><input id="buttonsearch" type="submit" name="btsearch" value="Search">
+            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id"><input id="buttonsearch" type="submit" name="btsearch" value="Search"><input id="buttonsearch" type="submit" name="btviewall" value="View All">
             		</div>
             	</div>
 			<div id="item">
