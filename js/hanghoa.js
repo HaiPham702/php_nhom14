@@ -1,5 +1,6 @@
 
 
+let typeForm = "insert"
 
 /**
  * Đóng form \
@@ -14,6 +15,8 @@
    * @param {*} val 
    */
   function openForm(val) {
+    typeForm = "update"
+    document.cookie = `typeForm=${typeForm}`;
     $(".mark-form").css("display", "block");
     $(".mark-form").find('.form-title').text("Sửa thông tin sản phẩm")
     bindData(val)
@@ -46,12 +49,17 @@
   }
 
 
-  $(".btn-save").click( () => {
+  /**
+   * Lưu data
+   */
+  $(".btn-save").click( (e) => {
+    e.preventDefault();
+
     if(validationController()) {
       $("#form").submit()
-      setTimeout(() => {
-        $("#search").submit()
-      }, 500)
+      // setTimeout(() => {
+      //   $("#search").submit()
+      // }, 500)
 
       clearForm()
     } 
@@ -61,6 +69,7 @@
    * Validate các control trong form
    */
   function validationController () {
+
 
     let control = $(".require").parent().find('input, textarea, select')
 
@@ -83,6 +92,9 @@
    */
   $(".btn-add").click((e) => {
     clearForm()
+    typeForm = "insert"
+    document.cookie = `typeForm=${typeForm}`;
+    $(".btn-save").attr("name",typeForm)
     $(".mark-form").find('.form-title').text("Thêm sản phẩm")
     $(".mark-form").css("display", "block");
   })

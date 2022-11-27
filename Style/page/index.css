@@ -57,7 +57,7 @@ li{
   }
 
   input[type="submit"] {
-    height: 36px;
+    height: 36px !important;
     min-width: 100px;
     border-radius: 10px;
     outline: none;
@@ -67,12 +67,25 @@ li{
   }
 
   .paging {
-    display: flex;
-    padding-left: 24px;
+    height: 36px;
+    background: white;
+    padding: 0 24px;
+    margin: 0 24px;
+    line-height: 36px;
+    position: fixed;
+    bottom: 1px;
+    border: 1px solid;
+    width: 97%;
   }
 
   .col-action {
     display: flex;
+    height: 58px;
+  }
+
+  .col-stt {
+    width: 40px;
+    text-align: center;
   }
 
   .btn {
@@ -179,5 +192,26 @@ li{
       color: red;
       margin-left: 4px;
     }
+
+    /* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 
   

@@ -55,28 +55,14 @@
     $listUnit = mysqli_query($conn, $sqlGetUnit);
 
     if (count($_GET) > 0) {
-        $sqlDelete = "DELETE FROM product p WHERE p.Id = " . $_GET["Id"] . " AND p.StockId = " . $_GET["StockId"] . "";
-        echo $sqlDelete;
-        // mysqli_query($conn, $sqlDelete);
+        $a = $_GET["StockId"] ?? null ;
+        $b =  $_GET["Id"] ?? null ;
+        if ($a && $b) {
 
-        $total = mysqli_fetch_array(mysqli_query($conn, $sqlTotal))[0];
+            $sqlDelete = "DELETE FROM product p WHERE p.Id = " . $_GET["Id"] . " AND p.StockId = " . $_GET["StockId"] . "";
+            echo $sqlDelete;
+            mysqli_query($conn, $sqlDelete);
 
-        $result = mysqli_query($conn, $sql);
-    }
-
-
-
-
-
-    if (count($_POST) > 0) {
-        $sqlUpdate = "UPDATE product p SET  StockId = " . $_POST['StockIdFrom'] . ", SuplierId = " . $_POST['subpierIDForm'] . ", UnitId = " . $_POST['unit'] . ", Description = '" . $_POST['description'] . "', ProductName = '" . $_POST['productName'] . "', Quantity = " . $_POST['quantity'] . ",  UnitDisplay = '', UnitPrice = " . $_POST['price'] . "  WHERE Id = " . $_POST['productId'] . " AND StockId = " . $_POST['StockIdFrom'] . ";";
-
-        $result = mysqli_query($conn, $sqlUpdate);
-
-        if ($result) {
-
-            echo $sql;
-            echo $subpierID;
             $total = mysqli_fetch_array(mysqli_query($conn, $sqlTotal))[0];
 
             $result = mysqli_query($conn, $sql);
@@ -84,6 +70,25 @@
     }
 
 
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $typeForm =  $_COOKIE['typeForm'];
+        $result;
+        if ($typeForm == 'update') {
+            $sqlUpdate = "UPDATE product p SET  StockId = " . $_POST['StockIdFrom'] . ", SuplierId = " . $_POST['subpierIDForm'] . ", UnitId = " . $_POST['unit'] . ", Description = '" . $_POST['description'] . "', ProductName = '" . $_POST['productName'] . "', Quantity = " . $_POST['quantity'] . ",  UnitDisplay = '', UnitPrice = " . $_POST['price'] . "  WHERE Id = " . $_POST['productId'] . " AND StockId = " . $_POST['StockIdFrom'] . ";";
+            mysqli_query($conn, $sqlUpdate);
+        } else if ($typeForm == 'insert') {
+            $newId = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(Id) + 1 FROM product"))[0];
+
+            $sqlInsert = "INSERT INTO product (Id, StockId, SuplierId, UnitId, Description, ProductName, Quantity, UnitDisplay, UnitPrice) VALUES (" . $newId . ", " . $_POST['StockIdFrom'] . ", " . $_POST['subpierIDForm'] . ", " . $_POST['unit'] . ", '" . $_POST['description'] . "', '" . $_POST['productName'] . "', " . $_POST['quantity'] . ", '', " . $_POST['price'] . ");";
+            echo $sqlInsert;
+            mysqli_query($conn, $sqlInsert);
+        }
+
+        $total = mysqli_fetch_array(mysqli_query($conn, $sqlTotal))[0];
+
+        $result = mysqli_query($conn, $sql);
+    }
 
     mysqli_close($conn);
 
@@ -112,13 +117,13 @@
         <!-- content -->
         <div class="container-product-page">
             <form action="" method="GET" class="toolbar">
-              
+
 
                 <div class="group-control">
-                <div class="search mr-3">
-                    <input class="c" type="text" name="textSearch" id="" placeholder="Nhập tên sản phẩm" value="<?php echo $textSearch ?>">
-                    <img src="./Images/icons/magnifying-glass-solid.svg" class="icon">
-                </div>
+                    <div class="search mr-3">
+                        <input class="c" type="text" name="textSearch" id="" placeholder="Nhập tên sản phẩm" value="<?php echo $textSearch ?>">
+                        <img src="./Images/icons/magnifying-glass-solid.svg" class="icon">
+                    </div>
                     <div class="combobox-control" style="margin-right: 8px;">
                         <div class="combobox-lable">
                             Kho hàng
@@ -157,58 +162,70 @@
             </form>
             <!-- table -->
 
-            <div>
+            <div style="height: 100% ;">
                 <table cellpadding="5">
-                    <tr style="background-color: #bcbcbc; color:black;">
-                        <td>STT</td>
-                        <td>Tên sản phẩm</td>
-                        <td>Đơn vị tính</td>
-                        <td>Mô tả</td>
-                        <td>Kho</td>
-                        <td>Nhà cung cấp</td>
-                        <td>Số lượng</td>
-                        <td>Giá bán</td>
-                        <td></td>
-                    </tr>
-                    <?php
-                    $stt = 0;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $stt++
-                    ?>
-                        <tr>
-                            <td><?php echo $stt; ?></td>
-                            <td class="col-product-name">
-                                <?php echo $row['ProductName']; ?>
+                    <table>
+                        <tr style="background-color: #bcbcbc; color:black;">
+                            <td class="col-stt">STT</td>
+                            <td class="col-product-name">Tên sản phẩm</td>
+                            <td class="col-unit">Đơn vị tính</td>
+                            <td>
+                                <div class="col-description">
+
+                                    Mô tả
+                                </div>
                             </td>
+                            <td class="col-stock">Kho</td>
+                            <td class="col-suplier">Nhà cung cấp</td>
+                            <td class="col-suplier">Số lượng</td>
+                            <td class="col-price">Giá bán</td>
+                            <td class="col-action-header"></td>
+                        </tr>
+                    </table>
+                    <div class="container-data-table">
+                        <table>
+                            <?php
+                            $stt = 0;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $stt++
+                            ?>
+                                <tr>
+                                    <td class="col-stt"><?php echo $stt; ?></td>
+                                    <td class="col-product-name">
+                                        <?php echo $row['ProductName']; ?>
+                                    </td>
+                    </div>
+                    <td class="col-unit"><?php echo $row['UnitName']; ?></td>
+
+                    <td>
+                        <?php echo '<div class="col-description" title="' . $row['Description'] . '" .> '
+                                    . $row['Description'] .
+                                    '</div> ';
+                        ?>
+                    </td>
+                    <td class="col-stock"><?php echo $row['StockName']; ?></td>
+                    <td class="col-suplier"><?php echo $row['SuplierName']; ?></td>
+                    <td class="col-suplier"><?php echo $row['Quantity']; ?></td>
+
+                    <td class="col-price"><?php echo number_format($row['UnitPrice'], 0, '', ',') . ' VND'; ?></td>
+                    <script>
+                        var <?php echo 'data_' . $row['Id'] ?> = <?php echo (json_encode($row)); ?>;
+                    </script>
+                    <td class="col-action">
+                        <a class="btn icon-edit" onclick="<?php echo 'openForm(data_' . $row['Id'] . ')' ?>">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a class="btn icon-delete" href="HangHoa.php?Id=<?php echo $row["Id"] . "&StockId=" . $row["StockId"]; ?>">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+
+                    </tr>
+                <?php } ?>
+                </table>
             </div>
-            <td class="col-unit"><?php echo $row['UnitName']; ?></td>
 
-            <td>
-                <?php echo '<div class="col-description" title="' . $row['Description'] . '" .> '
-                            . $row['Description'] .
-                            '</div> ';
-                ?>
-            </td>
-            <td class="col-stock"><?php echo $row['StockName']; ?></td>
-            <td class="col-suplier"><?php echo $row['SuplierName']; ?></td>
-            <td class="col-suplier"><?php echo $row['Quantity']; ?></td>
-
-            <td class="col-price"><?php echo number_format($row['UnitPrice'], 0, '', ',') . ' VND'; ?></td>
-            <script>
-                var <?php echo 'data_' . $row['Id'] ?> = <?php echo (json_encode($row)); ?>;
-            </script>
-            <td class="col-action">
-                <a class="btn icon-edit" onclick="<?php echo 'openForm(data_' . $row['Id'] . ')' ?>">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
-                <a class="btn icon-delete" href="HangHoa.php?Id=<?php echo $row["Id"] . "&StockId=" . $row["StockId"]; ?>">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-            </td>
-
-            </tr>
-        <?php } ?>
-        </table>
+            </table>
         </div>
     </div>
 
@@ -353,9 +370,8 @@
                 <div class="btn2 mr-1 close-form">
                     Đóng
                 </div>
-                <div class="btn2 btn-primar btn-save" onclick="validationController">
-                    Lưu
-                </div>
+                <input type="submit" class="btn2 btn-primar btn-save" value="Lưu" onclick="validationController" style="width: 120px;">
+
             </div>
         </div>
 

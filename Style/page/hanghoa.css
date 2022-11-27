@@ -1,5 +1,5 @@
 #menu {
-    height: 74px;
+    height: 88px;
 }
 
 .container-product-page {
@@ -8,6 +8,7 @@
     
 }
 .col-description {
+    min-width: 270px;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
@@ -16,7 +17,7 @@
 }
 
 .col-product-name {
-    min-width: 270px;
+    width: 270px;
 }
 
 
@@ -27,17 +28,30 @@
 }
 
 .col-price {
-    min-width: 110px;
+    width: 110px;
 }
 
 .col-suplier {
-    min-width: 140px;
+    width: 140px;
 }
 
 .col-stock {
-    min-width: 140px;
+    width: 140px;
 }
 
 .col-unit {
-    min-width: 100px;
+    width: 100px;
+}
+
+.col-action {
+    width: 86px;
+}
+
+.col-action-header {
+    width: 96px;
+}
+
+.container-data-table {
+    height: calc(100% - 65px);
+    overflow: auto;
 }
