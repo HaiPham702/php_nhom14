@@ -9,8 +9,8 @@
 	<title>Supplier</title>
 	<?php
         session_start();
-//            require __DIR__ . '.\common\configdb.php';
-      //  require_once 'db.php';
+        require __DIR__ . '.\common\configdb.php';
+       // require_once 'db.php';
 	$conn = mysqli_connect($servername, $username, $password, $database);
      mysqli_set_charset($conn, "utf8");
      // Check connection
@@ -21,11 +21,12 @@
         $id = $_GET['id'];
         $query = mysqli_query($conn, "select * from suplier where Id = '$id'");
         if(isset($_POST['btedit'])){
+            $eid = $_POST['txteid'];
             $esuppliername = $_POST['txtesuppliername'];
             $eaddr = $_POST['txteaddress'];
             $ephonenumber = $_POST['txtephonenumber'];
             $eemail = $_POST['txteemail'];
-            $query = mysqli_query($conn,"update suplier set SuplierName='$esuppliername', Address='$eaddr', PhoneNumber = '$ephonenumber', Email = '$eemail' where Id = '$id'");
+            $query = mysqli_query($conn,"update suplier set Id = '$eid', SuplierName='$esuppliername', Address='$eaddr', PhoneNumber = '$ephonenumber', Email = '$eemail' where Id = '$id'");
             header("location: NhaPhanPhoi.php");
         }
         mysqli_close($conn);
@@ -63,7 +64,7 @@
       					<label for="txteid">Supplier id</label>
     			</td>
     				<td>
-      					<input name="txteid" value="<?php echo $row['Id'] ?>" readonly/>
+      					<input name="txteid" value="<?php echo $row['Id'] ?>"/>
     				</td>
   				</tr>
   				<tr>
