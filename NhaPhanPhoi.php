@@ -25,7 +25,7 @@
                 $addr = $_POST['txtaddress'];
                 $phone = $_POST['txtphonenumber'];
                 $email = $_POST['txtemail'];
-				$id = $_POST['txtid'];
+		$id = $_POST['txtid'];
                 if($name==""||$addr==""||$phone==""||$email=="")
                 {
                     echo '<script language ="javascript">alert("The value must not be just space");</script>';
