@@ -9,9 +9,9 @@
 	<title>Supplier</title>
 	<?php
         session_start();
-//            require __DIR__ . '.\common\configdb.php';
+            require __DIR__ . '.\common\configdb.php';
            //require_once 'db.php';
-	$conn = mysqli_connect($servername, $username, $password, $database);
+	     $conn = mysqli_connect($servername, $username, $password, $database);
      mysqli_set_charset($conn, "utf8");
      // Check connection
      if (!$conn) {
@@ -25,7 +25,7 @@
                 $addr = $_POST['txtaddress'];
                 $phone = $_POST['txtphonenumber'];
                 $email = $_POST['txtemail'];
-		$id = $_POST['txtid'];
+				$id = $_POST['txtid'];
                 if($name==""||$addr==""||$phone==""||$email=="")
                 {
                     echo '<script language ="javascript">alert("The value must not be just space");</script>';
@@ -42,6 +42,17 @@
                 }
                 }
             }
+			if(isset($_POST['btsearch'])){
+				$searchid = $_POST['ipsearch'];
+				if($searchid=="")
+				{
+					echo '<script language ="javascript">alert("Please insert id");</script>';
+				}
+				else{
+					header("location: Search_supplier.php?search_id=$searchid");
+				}
+				
+			}
             session_destroy();
             mysqli_close($conn);
     ?>
@@ -52,7 +63,7 @@
    		<div class="content">
     	<div class="close-btn" onclick="togglePopupInsert()">×</div>     
 		<h1>Insert new record</h1> 
-		<form action="NhaPhanPhoi.php" method="post" name="forminsert"> 
+		<form action="" method="post" name="forminsert"> 
 			<table cellpadding="10" style="border: none;">
 				<tr>
     				<td>
@@ -120,14 +131,14 @@
 		</ul>
             </div>
             <div id="content">
-            	<div id="searcharea">
+				<form id="searcharea" action="" method="post">
             		<div id="search">
-            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id">
+            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" placeholder="Search for id">
 					<input id="buttonsearch" type="submit" name="btsearch" value="Search"/>
 					<input id="buttonsearch" type="submit" name="btviewall" value="View all"/>
-					<input id="buttonsearch" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/>
+					
             		</div>
-            	</div>
+				</form>
 			<div id="item">
 				<div id="datatable">
 				<table cellpadding="5" style="margin-bottom: 5%;">
@@ -137,7 +148,7 @@
                                             <td><label>Address</label></td>
                                             <td><label>Phone Number</label></td>
                                             <td><label>Email</label></td>
-                                            <td style="text-align: center;">Tools</td>
+                                            <td style="text-align: center"><input id="buttonsearch" style="background-color: aqua; border: none; cursor: pointer" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/></td>
 										</tr>
 										<?php 
                                             while ($row = mysqli_fetch_assoc($result))
@@ -149,11 +160,11 @@
                                             <td><?php echo $row['Address'] ?></td>
                                             <td><?php echo $row['PhoneNumber'] ?></td>
                                             <td><?php echo $row['Email'] ?></td>
-						<?php 
-							echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."&page=NhaPhanPhoi.php'>Delete</a></td>";
+											<?php 
+												echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."&page=NhaPhanPhoi.php'>Delete</a></td>";
 											?>
                                             
-						</tr>
+										</tr>
                                         <?php }?>
 				</table>
 				</div>
