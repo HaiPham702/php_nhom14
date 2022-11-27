@@ -214,4 +214,10 @@ li{
   background: #555; 
 }
 
+.content {
+  height: calc(100% - 180px);
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
   
