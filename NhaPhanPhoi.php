@@ -11,6 +11,13 @@
         session_start();
 //            require __DIR__ . '.\common\configdb.php';
            //require_once 'db.php';
+	$conn = mysqli_connect($servername, $username, $password, $database);
+     mysqli_set_charset($conn, "utf8");
+     // Check connection
+     if (!$conn) {
+         die("Connection failed: " . mysqli_connect_error());
+         exit();
+     }
             $sql = "select * from suplier";
             $result = mysqli_query($conn, $sql);
             if(isset($_POST['btsaveinsert'])){
