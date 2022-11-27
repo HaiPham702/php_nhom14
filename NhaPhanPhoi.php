@@ -25,7 +25,7 @@
                 $addr = $_POST['txtaddress'];
                 $phone = $_POST['txtphonenumber'];
                 $email = $_POST['txtemail'];
-				$id = $_POST['txtid'];
+		$id = $_POST['txtid'];
                 if($name==""||$addr==""||$phone==""||$email=="")
                 {
                     echo '<script language ="javascript">alert("The value must not be just space");</script>';
@@ -149,11 +149,11 @@
                                             <td><?php echo $row['Address'] ?></td>
                                             <td><?php echo $row['PhoneNumber'] ?></td>
                                             <td><?php echo $row['Email'] ?></td>
-											<?php 
-												echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."'>Delete</a></td>";
+						<?php 
+							echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."&page=NhaPhanPhoi.php'>Delete</a></td>";
 											?>
                                             
-										</tr>
+						</tr>
                                         <?php }?>
 				</table>
 				</div>

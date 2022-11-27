@@ -1,5 +1,6 @@
 <?php
     $id = $_GET['id'];
+    $page = $_GET['page'];
     //require_once 'db.php';
 $conn = mysqli_connect($servername, $username, $password, $database);
      mysqli_set_charset($conn, "utf8");
@@ -9,5 +10,5 @@ $conn = mysqli_connect($servername, $username, $password, $database);
          exit();
      }
     $query = mysqli_query($conn, "delete from suplier where Id = '$id'");
-    header("location: NhaPhanPhoi.php");
+    header("location: $page");
 ?>
