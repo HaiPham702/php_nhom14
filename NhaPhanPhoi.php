@@ -9,35 +9,33 @@
 	<title>Supplier</title>
 	<?php
         session_start();
-            $_SESSION = session_id();
-            require __DIR__ . '.\common\configdb.php';
-//            $servername = "localhost";
-//            $database = "qlkho";
-//            $username = "root";
-//            $password = "v!nhMysqlpw$";
-            // Create connection
-            $conn = mysqli_connect($servername, $username, $password, $database);
-            mysqli_set_charset($conn, "utf8");
-            // Check connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-                exit();
-            }
+//            require __DIR__ . '.\common\configdb.php';
+           require_once 'db.php';
             $sql = "select * from suplier";
             $result = mysqli_query($conn, $sql);
-//            if(isset($_POST['btsave'])){
-//                $name = $_POST['txtsuppliername'];
-//                $addr = $_POST['txtaddress'];
-//                $phone = $_POST['txtphonenumber'];
-//                $email = $_POST['txtemail'];
-//                $querry = mysqli_query($conn, "insert into suplier(SuplierName, Address, PhoneNumber, Email) values('".$name."', '".$addr."', '".$phone."', '".$email."')");
-//                if($querry){
-//                    echo 'Successfully';
-//                }
-//                else{
-//                    echo '<script language ="javascript">alert("Insert failed");</script>';
-//                }
-//            }
+            if(isset($_POST['btsaveinsert'])){
+                $name = $_POST['txtsuppliername'];
+                $addr = $_POST['txtaddress'];
+                $phone = $_POST['txtphonenumber'];
+                $email = $_POST['txtemail'];
+				$id = $_POST['txtid'];
+                if($name==""||$addr==""||$phone==""||$email=="")
+                {
+                    echo '<script language ="javascript">alert("The value must not be just space");</script>';
+                    mysqli_close($conn);
+                }
+                else{
+                $querry = mysqli_query($conn, "insert into suplier values('".$id."','".$name."', '".$addr."', '".$phone."', '".$email."')");
+                if($querry){
+                    echo 'Successfully';
+					header("Location:NhaPhanPhoi.php");
+                }
+                else{
+                    echo '<script language ="javascript">alert("Insert failed");</script>';
+                }
+                }
+            }
+            session_destroy();
             mysqli_close($conn);
     ?>
 </head>
@@ -49,12 +47,20 @@
 		<h1>Insert new record</h1> 
 		<form action="NhaPhanPhoi.php" method="post" name="forminsert"> 
 			<table cellpadding="10" style="border: none;">
+				<tr>
+    				<td>
+      					<label for="txtid">Supplier Id</label>
+    			</td>
+    				<td>
+                        <div class="input-field"><input name="txtid" placeholder="Supplier name" class="validate" value=""></div>
+    				</td>
+  				</tr>
   				<tr>
     				<td>
       					<label for="txtsuppliername">Supplier Name</label>
     			</td>
     				<td>
-      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate"></div>
+                                    <div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate" value=""></div>
     				</td>
   				</tr>
     			<tr>
@@ -62,7 +68,7 @@
       					<label for="txtaddress">Address</label>
     				</td>
     				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate"></div>
+                                    <div class="input-field"><input name="txtaddress" placeholder="Address" class="validate" value=""></div>
     				</td>
    	 			</tr>
     			<tr>
@@ -70,7 +76,7 @@
       					<label for="txtphonenumber">Phone Number</label>
     			</td>
     				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate"></div>
+                        <div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate" value=""></div>
     				</td>
     			</tr>
     			<tr>
@@ -78,12 +84,12 @@
       					<label for="txtemail">Email</label>
     				</td>
     				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate"></div>
+                        <div class="input-field"><input name="txtemail" placeholder="Email" class="validate" value=""></div>
     				</td>
   				</tr>
 
 			</table>
-                    <input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save">
+                    <input style="cursor: pointer;" class="second-button" type="submit" name="btsaveinsert" value="Save">
 		</form>
    		</div>
   	</div>
@@ -92,61 +98,6 @@
  			document.getElementById("Insert").classList.toggle("active");
 		}
 	</script>
-
-	<!-- popup section for Editting -->
-   	<div class="popup" id="Edit">
-   		<div class="content">
-    	<div class="close-btn" onclick="togglePopupEdit()">×</div>     
-		<h1>Edit record</h1> 
-		<form action="" method="post" name="formedit">
-                    <table cellpadding="10" style="border: none">
-  				<tr>
-    				<td>
-      					<label for="txtsuppliername">Supplier Name</label>
-    			</td>
-    				<td>
-      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate"></div>
-    				</td>
-  				</tr>
-    			<tr>
-    				<td>
-      					<label for="txtaddress">Address</label>
-    				</td>
-    				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate"></div>
-    				</td>
-   	 			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtphonenumber">Phone Number</label>
-    			</td>
-    				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate"></div>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtemail">Email</label>
-    				</td>
-    				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate"></div>
-    				</td>
-  				</tr>
-			</table>
-		</form>
-                <input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save" onclick="redirect()">
-   		</div>
-  	</div>
-	<script>
- 		function togglePopupEdit() {
- 			document.getElementById("Edit").classList.toggle("active");
-		}
-	</script>
-        <script>
-      function redirect() {
-        window.location.href="NhaPhanPhoi.php";
-      }
-    </script>
 	<div id="container">
             <div id="menu">
 		<ul>
@@ -164,7 +115,10 @@
             <div id="content">
             	<div id="searcharea">
             		<div id="search">
-            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id"><input id="buttonsearch" type="submit" name="btsearch" value="Search"><input id="buttonsearch" type="submit" name="btviewall" value="View All">
+            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id">
+					<input id="buttonsearch" type="submit" name="btsearch" value="Search"/>
+					<input id="buttonsearch" type="submit" name="btviewall" value="View all"/>
+					<input id="buttonsearch" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/>
             		</div>
             	</div>
 			<div id="item">
@@ -177,21 +131,22 @@
                                             <td><label>Phone Number</label></td>
                                             <td><label>Email</label></td>
                                             <td style="text-align: center;">Tools</td>
-					</tr>
-					<?php 
+										</tr>
+										<?php 
                                             while ($row = mysqli_fetch_assoc($result))
                                                 {
                                         ?>
-					<tr>
+										<tr>
                                             <td><?php echo $row['Id'] ?></td>
                                             <td><?php echo $row['SuplierName'] ?></td>
                                             <td><?php echo $row['Address'] ?></td>
                                             <td><?php echo $row['PhoneNumber'] ?></td>
                                             <td><?php echo $row['Email'] ?></td>
-                                            <td>
-                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupEdit()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
-                                            </td>
-					</tr>
+											<?php 
+												echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."'>Delete</a></td>";
+											?>
+                                            
+										</tr>
                                         <?php }?>
 				</table>
 				</div>
