@@ -8,20 +8,19 @@
 	height: 100%;
 	z-index: 1;
 }
-#menu ul{
+ul{
 	display: flex;
 	justify-content: center;
 }
-#menu li{
+li{
 	padding: 30px;
 	list-style-type: none;
 	font-size: 20px;
-	line-height: 1;
 }
 #menu{
 	position: fixed;
 	top: 0px;
-	height: 10%;
+	height: 15%;
 	width: 100%;
 	background-color: black;
 	z-index: 3;
@@ -30,25 +29,20 @@ div ul li a{
 	text-decoration: none;
 	color: white;
 }
-
-a:hover {
-	text-decoration: none;
-	color: white;
-}
-
 #content{
 	position: relative;
-	top: 10%;
+	top: 15%;
 	width: 100%;
-	height: 85%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+	height: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 	z-index: 2;
 }
 #contact{
 	position: fixed;
-	bottom: 0px;
+	bottom: 0%;
+	
 	width: 100%;
 	height: 5%;
 	background-color: black;
@@ -56,11 +50,138 @@ a:hover {
 	display: flex;
 	justify-content: center;
 }
-table{
+#searcharea{
 	position: relative;
-	top: 45%;
+	width: 100%;
+	height: 20%;
+	text-align: center;
 }
+#search{
+	position: relative;
+	height: 30%;
+	top: 30%;
+}
+#item{
+	position: relative;
+	width: 100%;
+	height: 80%;
+	top: 0%;
+}
+#datatable{
+	position: relative;
+	width: 100%;
+	top: 0%;
+	display: flex;
+	justify-content: center;
+}
+
+#buttonsearch{
+	height: 30px;
+	padding: 5px;
+	border: none;
+	background-color: whitesmoke;
+	cursor: pointer;
+}
+#buttonsearch:hover{
+	background-color: aqua;
+}
+
 table, tr, td{
 	border: 1px solid black;
 	border-collapse: collapse;
+}
+
+#tools{
+	border: none;
+	background-color: white;
+	cursor: pointer;
+}
+
+#tools:hover{
+	background-color: aqua;
+}
+
+form tr{
+	border: none;
+}
+form td{
+	border: none;
+}
+
+/*popup section*/
+.popup .content {
+ position: fixed;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%,-150%) scale(0);
+ z-index: 2;
+ text-align: center;
+ padding: 10px;
+ border-radius: 5px;
+ background: #dfdfdf;
+ z-index: 4;
+}
+
+.popup .close-btn {
+ position: absolute;
+ right: 20px;
+ top: 20px;
+ width: 30px;
+ height: 30px;
+ font-size: 30px;
+ border-radius: 50%;
+ padding: 2px 5px 7px 5px;
+ background-color: whitesmoke;
+ cursor: pointer;
+ }
+ .close-btn:hover{
+  background-color: aqua;
+ }
+
+.popup.active .content {
+transition: all 300ms ease-in-out;
+transform: translate(-50%,-50%) scale(1);
+}
+
+h1 {
+ text-align: center;
+ font-size: 32px;
+ font-weight: 600;
+ padding-top: 20px;
+ padding-bottom: 10px;
+ color: rgb(91, 91, 92);
+}
+
+.input-field .validate {
+padding: 10px;
+font-size: 16px;
+border-radius: 5px;
+border: none;
+margin-bottom: 15px;
+width: 270px;
+outline: none;
+}
+
+.second-button {
+font-size: 18px;
+font-weight: 500;
+margin-top: 20px;
+padding: 15px 40px;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+ background-color: whitesmoke;
+transition: box-shadow .35s ease !important;
+outline: none;
+}
+
+.second-button:hover{
+background: aqua;
+ 
+border: none;
+outline: none;
+}
+
+table tr td{
+  text-align: left;
 }
