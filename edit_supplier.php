@@ -64,7 +64,7 @@
       					<label for="txteid">Supplier id</label>
     			</td>
     				<td>
-      					<input name="txteid" value="<?php echo $row['Id'] ?>"/>
+      					<input name="txteid" value="<?php echo $row['Id'] ?>" readonly/>
     				</td>
   				</tr>
   				<tr>
