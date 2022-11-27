@@ -25,3 +25,19 @@
     align-items: flex-end;
     
 }
+
+.col-price {
+    min-width: 110px;
+}
+
+.col-suplier {
+    min-width: 140px;
+}
+
+.col-stock {
+    min-width: 140px;
+}
+
+.col-unit {
+    min-width: 100px;
+}
