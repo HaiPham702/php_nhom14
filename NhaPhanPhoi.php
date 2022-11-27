@@ -149,11 +149,11 @@
                                             <td><?php echo $row['Address'] ?></td>
                                             <td><?php echo $row['PhoneNumber'] ?></td>
                                             <td><?php echo $row['Email'] ?></td>
-											<?php 
-												echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."'>Delete</a></td>";
+						<?php 
+							echo"<td><a href='edit_supplier.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."&page=NhaPhanPhoi.php'>Delete</a></td>";
 											?>
                                             
-										</tr>
+						</tr>
                                         <?php }?>
 				</table>
 				</div>
