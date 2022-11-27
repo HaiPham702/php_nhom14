@@ -10,7 +10,7 @@
 	<?php
         session_start();
 //            require __DIR__ . '.\common\configdb.php';
-           require_once 'db.php';
+           //require_once 'db.php';
             $sql = "select * from suplier";
             $result = mysqli_query($conn, $sql);
             if(isset($_POST['btsaveinsert'])){
