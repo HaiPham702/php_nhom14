@@ -21,12 +21,11 @@
         $id = $_GET['id'];
         $query = mysqli_query($conn, "select * from suplier where Id = '$id'");
         if(isset($_POST['btedit'])){
-            $eid = $_POST['txteid'];
             $esuppliername = $_POST['txtesuppliername'];
             $eaddr = $_POST['txteaddress'];
             $ephonenumber = $_POST['txtephonenumber'];
             $eemail = $_POST['txteemail'];
-            $query = mysqli_query($conn,"update suplier set Id = '$eid', SuplierName='$esuppliername', Address='$eaddr', PhoneNumber = '$ephonenumber', Email = '$eemail' where Id = '$id'");
+            $query = mysqli_query($conn,"update suplier set SuplierName='$esuppliername', Address='$eaddr', PhoneNumber = '$ephonenumber', Email = '$eemail' where Id = '$id'");
             header("location: NhaPhanPhoi.php");
         }
         mysqli_close($conn);
