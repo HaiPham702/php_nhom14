@@ -9,8 +9,8 @@
 	<title>Supplier</title>
 	<?php
         session_start();
-//            require __DIR__ . '.\common\configdb.php';
-           //require_once 'db.php';
+           require __DIR__ . '.\common\configdb.php';
+        //    require_once 'db.php';
 	$conn = mysqli_connect($servername, $username, $password, $database);
      mysqli_set_charset($conn, "utf8");
      // Check connection
@@ -114,7 +114,7 @@
                     <li><a href="HangHoa.php"><i class="fa fa-clipboard-list"></i> Products</a></li>
                     <li><a href="Nhap.php"><i class="fa fa-arrow-alt-circle-down"></i> Import</a></li>
                     <li><a href="Xuat.php"><i class="fa fa-arrow-alt-circle-up"></i> Export</a></li>
-                    <li><a href="NhanVien.php"><i class="fa fa-user"></i> Employee</a></li>
+                    
                     <li><a href="ThongKe.php"><i class="fa fa-chart-line"></i> Analyze</a></li>
                     <li><a href="Logout.php"><i class="fa fa-sign-out-alt"></i> Sign out</a></li>
 		</ul>
