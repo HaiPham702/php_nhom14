@@ -6,91 +6,135 @@
 	<link rel="stylesheet" type="text/css" href="Style/WebTemplate.css">
 	<link rel="stylesheet" type="text/css" href="FontAwesome\css\all.css">
         <link rel="icon" href="Images\Logo.PNG" type="image/x-icon">
-	<title>Export</title>
+	<title>Supplier</title>
 	<?php
         session_start();
-            $_SESSION = session_id();
             require __DIR__ . '.\common\configdb.php';
-	//$servername = "localhost";
-          //  $database = "qlkho";
-            //$username = "root";
-            //$password = "v!nhMysqlpw$";
-            // Create connection
-            $conn = mysqli_connect($servername, $username, $password, $database);
-            mysqli_set_charset($conn, "utf8");
-            // Check connection
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-                exit();
+       		//require_once 'db.php';
+	     // Create connection
+     $conn = mysqli_connect($servername, $username, $password, $database);
+     mysqli_set_charset($conn, "utf8");
+     // Check connection
+     if (!$conn) {
+         die("Connection failed: " . mysqli_connect_error());
+         exit();
+     }
+			$sql = "select * from receipt";
+            $result = mysqli_query($conn, $sql);
+            if(isset($_POST['btsaveinsert'])){
+                $id = $_POST['txtid'];
+                $stockid = $_POST['txtstockid'];
+                $empid = $_POST['txtemployeeid'];
+                $stockname = $_POST['txtstockname'];
+				$receipttype = $_POST['txtreceipttype'];
+				$title = $_POST['txttitle'];
+				$content = $_POST['txtcontent'];
+				$isappect = $_POST['txtisappect'];
+				$date = $_POST['txtcreatedate'];
+                if($id==""||$stockid==""||$empid==""||$stockname==""||$receipttype==""||$title==""||$content==""||$isappect==""||$date=="")
+                {
+                    echo '<script language ="javascript">alert("The value must not be just space");</script>';
+                    mysqli_close($conn);
+                }
+                else{
+                $querry = mysqli_query($conn, "insert into receipt values('".$id."','".$stockid."', '".$empid."', '".$stockname."', '".$receipttype."','".$title."','".$content."', '".$isappect."', '".$date."')");
+                	if($querry){
+                    echo 'Successfully';
+					header("Location: Xuat.php");
+                	}
+                	else{
+                    	echo '<script language ="javascript">alert("Insert failed");</script>';
+                	}
+                }
             }
-            
-//            if(isset($_POST['btsave'])){
-//                $name = $_POST['txtsuppliername'];
-//                $addr = $_POST['txtaddress'];
-//                $phone = $_POST['txtphonenumber'];
-//                $email = $_POST['txtemail'];
-//                $querry = mysqli_query($conn, "insert into suplier(SuplierName, Address, PhoneNumber, Email) values('".$name."', '".$addr."', '".$phone."', '".$email."')");
-//                if($querry){
-//                    echo 'Successfully';
-//                }
-//                else{
-//                    echo '<script language ="javascript">alert("Insert failed");</script>';
-//                }
-//            }
-                $sql = "select * from receipt where ReceiptType=1;";
-                $result = mysqli_query($conn, $sql);
-            if(isset($_POST['ipsearch'])||isset($_POST['btsearch'])){
-                $id = $_POST['ipsearch'];
-                $sql = "select * from receipt where Id = '".$id."';";
-                $result = mysqli_query($conn, $sql);
-                header("location: Xuat.php");
-            }
+			if(isset($_POST['btsearch'])){
+				$searchid = $_POST['ipsearch'];
+				if($searchid=="")
+				{
+					echo '<script language ="javascript">alert("Please insert id");</script>';
+				}
+				else{
+					header("location: Search_receipt.php?search_id=$searchid");
+				}
+				
+			}
+            session_destroy();
             mysqli_close($conn);
     ?>
 </head>
 <body>
-	<!-- popup section for insertion -->
-   	<div class="popup" id="Insert">
-   		<div class="content">
+<div class="popup" id="Insert">
+   		<div class="content" style="width: 70%;">
     	<div class="close-btn" onclick="togglePopupInsert()">×</div>     
 		<h1>Insert new record</h1> 
-		<form action="NhaPhanPhoi.php" method="post" name="forminsert"> 
+		<form action="Xuat.php" method="post" name="forminsert"> 
 			<table cellpadding="10" style="border: none;">
-  				<tr>
+				<tr>
     				<td>
-      					<label for="txtsuppliername">Supplier Name</label>
-    			</td>
+      					<label for="txtid">Id</label>
+    				</td>
     				<td>
-                                    <div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate" required></div>
+                        <div class="input-field"><input name="txtid" placeholder="Id" class="validate" required></div>
+    				</td>
+					<td>
+      					<label for="txtstockid">Stock Id</label>
+    				</td>
+    				<td>
+                        <div class="input-field"><input name="txtstockid" placeholder="Stock Id" class="validate" required></div>
     				</td>
   				</tr>
-    			<tr>
+				  <tr>
     				<td>
-      					<label for="txtaddress">Address</label>
-    				</td>
-    				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate" required></div>
-    				</td>
-   	 			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtphonenumber">Phone Number</label>
+      					<label for="txtemployeeid">Employee Id</label>
     			</td>
     				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate" required></div>
+                        <div class="input-field"><input name="txtemployeeid" placeholder="Employee Id" class="validate" required></div>
     				</td>
-    			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtemail">Email</label>
+					<td>
+      					<label for="txtstockname">Stock Name</label>
     				</td>
     				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate" required></div>
+                        <div class="input-field"><input name="txtstockname" placeholder="Stock Name" class="validate" required></div>
     				</td>
   				</tr>
-
+				  <tr>
+    				<td>
+      					<label for="txtreceipttype">Receipt Type</label>
+    			</td>
+    				<td>
+                        <div class="input-field"><input name="txtreceipttype" placeholder="Receipt Type" class="validate" required></div>
+    				</td>
+					<td>
+      					<label for="txttitle">Title</label>
+    			</td>
+    				<td>
+                        <div class="input-field"><input name="txttitle" placeholder="Title" class="validate" required></div>
+    				</td>
+  				</tr>
+				  <tr>
+    				<td>
+      					<label for="txtcontent">Content</label>
+    				</td>
+    				<td>
+                        <div class="input-field"><input name="txtcontent" placeholder="Content" class="validate" required></div>
+    				</td>
+					<td>
+      					<label for="txtisappect">Is Aspect</label>
+    			</td>
+    				<td>
+                        <div class="input-field"><input name="txtisappect" placeholder="Is Appect" class="validate" required></div>
+    				</td>
+  				</tr>
+				  <tr>
+    				<td>
+      					<label for="txtcreatedate">Create Date</label>
+    			</td>
+    				<td>
+                        <div class="input-field"><input name="txtcreatedate" placeholder="Create Date" class="validate" required></div>
+    				</td>
+  				</tr>
 			</table>
-                    <input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save">
+                    <input style="cursor: pointer;" class="second-button" type="submit" name="btsaveinsert" value="Save">
 		</form>
    		</div>
   	</div>
@@ -99,61 +143,6 @@
  			document.getElementById("Insert").classList.toggle("active");
 		}
 	</script>
-
-	<!-- popup section for Editting -->
-   	<div class="popup" id="Edit">
-   		<div class="content">
-    	<div class="close-btn" onclick="togglePopupEdit()">×</div>     
-		<h1>Edit record</h1> 
-		<form action="" method="post" name="formedit">
-                    <table cellpadding="10" style="border: none">
-  				<tr>
-    				<td>
-      					<label for="txtsuppliername">Supplier Name</label>
-    			</td>
-    				<td>
-      					<div class="input-field"><input name="txtsuppliername" placeholder="Supplier name" class="validate" required></div>
-    				</td>
-  				</tr>
-    			<tr>
-    				<td>
-      					<label for="txtaddress">Address</label>
-    				</td>
-    				<td>
-      					<div class="input-field"><input name="txtaddress" placeholder="Address" class="validate" required></div>
-    				</td>
-   	 			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtphonenumber">Phone Number</label>
-    			</td>
-    				<td>
-       					<div class="input-field"><input name="txtphonenumber" placeholder="Phone number" class="validate" required></div>
-    				</td>
-    			</tr>
-    			<tr>
-    				<td>
-      					<label for="txtemail">Email</label>
-    				</td>
-    				<td>
-       					<div class="input-field"><input name="txtemail" placeholder="Email" class="validate" required></div>
-    				</td>
-  				</tr>
-			</table>
-		</form>
-                <input style="cursor: pointer;" class="second-button" type="submit" name="btsave" value="Save" onclick="redirect()">
-   		</div>
-  	</div>
-	<script>
- 		function togglePopupEdit() {
- 			document.getElementById("Edit").classList.toggle("active");
-		}
-	</script>
-        <script>
-      function redirect() {
-        window.location.href="NhaPhanPhoi.php";
-      }
-    </script>
 	<div id="container">
             <div id="menu">
 		<ul>
@@ -169,53 +158,47 @@
 		</ul>
             </div>
             <div id="content">
-            	<div id="searcharea">
+			<form id="searcharea" action="" method="post">
             		<div id="search">
-                            <form action="Xuat.php" method="post">
-            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" name="ipsearch" placeholder="Search for id"><input id="buttonsearch" type="submit" name="btsearch" value="Search"><input id="buttonsearch" type="submit" name="btviewall" value="View All">
-                            </form>
+            		<input style="background-color:whitesmoke; height: 30px; border: none; width: 250px;" type="search" name="ipsearch" placeholder="Search for id">
+					<input id="buttonsearch" type="submit" name="btsearch" value="Search"/>
+					<input id="buttonsearch" type="submit" name="btviewall" value="View all"/>
             		</div>
-            	</div>
+				</form>
 			<div id="item">
 				<div id="datatable">
 				<table cellpadding="5" style="margin-bottom: 5%;">
                                         <tr style="background-color: aqua; color:black;">
                                             <td><label>ID</label></td>
-                                            <td><label>Stock ID</label></td>
-                                            <td><label>Employee ID</label></td>
-                                            <td><label>Stock Name</label></td>
+                                            <td><label>Stock Id</label></td>
+                                            <td><label>Employee Id</label></td>
+                                            <td><label>StockName</label></td>
                                             <td><label>Receipt Type</label></td>
-                                            <td><label>Title</label></td>
-                                            <td><label>Content</label></td>
-                                            <td><label>Is Appect</label></td>
-                                            <td><label>Create Date</label></td>
-                                            <td style="text-align: center;">Tools</td>
-					</tr>
-					<?php 
+											<td><label>Title</label></td>
+											<td><label>Content</label></td>
+											<td><label>Is Appect</label></td>
+											<td><label>Create Date</label></td>
+                                            <td style="text-align: center;"><div><input id="buttonsearch" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><div></td>
+										</tr>
+										<?php 
                                             while ($row = mysqli_fetch_assoc($result))
                                                 {
                                         ?>
-					<tr>
+										<tr>
                                             <td><?php echo $row['Id'] ?></td>
                                             <td><?php echo $row['StockId'] ?></td>
                                             <td><?php echo $row['EmployeeId'] ?></td>
                                             <td><?php echo $row['StockName'] ?></td>
-                                            <td><?php echo 'Phieu Xuat' ?></td>
-                                            <td><?php echo $row['Title'] ?></td>
-                                            <td><?php echo $row['Content'] ?></td>
-                                            <td><?php 
-                                            if($row['IsAppect']==0){
-                                                echo 'Chua xuat';
-                                            }
-                                            else{
-                                                echo 'Da xuat';
-                                            }
-                                              ?></td>
-                                            <td><?php echo $row['CreateDate'] ?></td>
-                                            <td>
-                                                <input id="tools" type="submit" name="btinsert" value="Insert" onclick="togglePopupInsert()"/><input id="tools" type="submit" name="btedit" value="Edit" onclick="togglePopupEdit()"/><input id="tools" type="submit" name="btdelete" value="Delete"/>
-                                            </td>
-					</tr>
+                                            <td><?php echo $row['ReceiptType'] ?></td>
+											<td><?php echo $row['Title'] ?></td>
+											<td><?php echo $row['Content'] ?></td>
+											<td><?php echo $row['IsAppect'] ?></td>
+											<td><?php echo $row['CreateDate'] ?></td>
+											<?php 
+												echo"<td><a href='edit_export_receipt.php?id=".$row['Id']."'>Edit</a><a href='delete.php?id=".$row['Id']."&page=Xuat.php'>Delete</a></td>";
+											?>
+                                            
+										</tr>
                                         <?php }?>
 				</table>
 				</div>

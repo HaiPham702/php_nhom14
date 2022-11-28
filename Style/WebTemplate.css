@@ -86,19 +86,15 @@ div ul li a{
 	background-color: aqua;
 }
 
+#buttonsearch:first-child{
+	background-color: aqua;
+}
+#buttonsearch:first-child:hover{
+	color: red;
+}
 table, tr, td{
 	border: 1px solid black;
 	border-collapse: collapse;
-}
-
-#tools{
-	border: none;
-	background-color: white;
-	cursor: pointer;
-}
-
-#tools:hover{
-	background-color: aqua;
 }
 
 form tr{
@@ -170,7 +166,7 @@ padding: 15px 40px;
 border-radius: 5px;
 border: none;
 cursor: pointer;
- background-color: whitesmoke;
+background-color: whitesmoke;
 transition: box-shadow .35s ease !important;
 outline: none;
 }
