@@ -67,9 +67,7 @@
 				</table>
 			</div>
 		</div>
-            <div id="contact">
-                <p style="color: white; padding: 10px;">Powered by Group 14</p>
-            </div>
+        
         </div>
 </body> 
 </html>
