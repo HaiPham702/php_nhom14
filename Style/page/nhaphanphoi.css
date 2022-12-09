@@ -1,0 +1,13 @@
+#menu {
+    height: 88px;
+}
+
+.container-product-page {
+    height:  calc(100% - 241px);
+    padding: 0 24px;
+}
+.group-control {
+    display: flex;
+    align-items: flex-end;
+    
+}
