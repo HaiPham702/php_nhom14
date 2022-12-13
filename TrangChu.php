@@ -28,6 +28,9 @@
         $sql = "SELECT s.*, COUNT(p.StockId) AS TotalProduct FROM stock s RIGHT JOIN product p ON s.Id = p.StockId GROUP BY s.Id";
         $result = mysqli_query($conn, $sql);
 
+        $sqlProduct = "SELECT * from product p;";
+        $dataProduct = mysqli_query($conn, $sqlProduct);
+
         mysqli_close($conn);
         ?>
 </head>
@@ -44,28 +47,32 @@
 
                                 <li><a href="Nhap.php"><i class="fa fa-arrow-alt-circle-down"></i> Import</a></li>
                                 <li><a href="Xuat.php"><i class="fa fa-arrow-alt-circle-up"></i> Export</a></li>
-                                
-                                
+
+
                                 <li><a href="Logout.php"><i class="fa fa-sign-out-alt"></i> Sign out</a></li>
                         </ul>
                 </div>
 
                 <div class="content">
-                        <div class="grid-item">
-                                <canvas id="myChart" width="400" height="100" ></canvas>
+                        <div class="grid-item" style="    padding-top: 110px;
+">
+                                <canvas id="myChart" width="400" height="100"></canvas>
                         </div>
-                        <div class="grid-item">
-                                
+                        <div class="grid-item" style="    width: 100%;
+                            margin-left: 150px;
+    width: 500px;
+    display: flex;
+    justify-content: center;">
+                                <canvas id="productChart" width="400" height="100"></canvas>
                         </div>
-                        <div class="grid-item">3</div>
-                        <div class="grid-item">4</div>
+
 
                 </div>
 
 
         </div>
 
-      
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="./js/trangchu.js"></script>
         <script>
@@ -75,6 +82,14 @@
                 }   ?>
 
                 setData(data)
+
+                var dataProduct = []
+
+                <?php while ($itemProduct = mysqli_fetch_assoc($dataProduct)) {
+                        echo  "dataProduct.push(" . json_encode($itemProduct) . ");";
+                }   ?>
+                setProductChart(dataProduct)
+
         </script>
 </body>
 
