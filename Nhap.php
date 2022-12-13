@@ -211,10 +211,7 @@
                                                                     </tr>
                                                                 <?php } ?>
                                                             </table>
-                                                            <div class="add-product">
-                                                                <i class="fa-sharp fa-solid fa-plus"></i>
-                                                                Thêm sản phẩm
-                                                            </div>
+                                                           
 
                                                         </div>
 
