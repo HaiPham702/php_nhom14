@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="FontAwesome\css\all.css">
     <link rel="icon" href="Images\Logo.PNG" type="image/x-icon">
     <link rel="stylesheet" href="./Style/page/import.css">
+    <script src="./js/jquery.js"></script>
     <title>Nhập kho</title>
     <?php
     session_start();
@@ -37,6 +38,10 @@
     // Lấy danh sách kho
     $sqlGetStock = "SELECT * FROM stock";
     $listStockForm = mysqli_query($conn, $sqlGetStock);
+
+        // Lấy danh sách kho
+        $sqlGetProductForm = "SELECT * FROM product";
+        $listProductForm = mysqli_query($conn, $sqlGetProductForm);
 
     $receiptId =  $_COOKIE['receiptId'] ?? null;
 
@@ -180,7 +185,25 @@
                                                 </div>
                                                 <div class="row mt-2">
                                                     <div class="col">
-                                                        <div>Sản phẩm</div>
+                                                        <div class="combobox-control" style="margin-right: 8px;">
+                                                            <div class="combobox-lable require">
+                                                            Sản phẩm
+                                                            </div>
+                                                            <div class="container-controll">
+                                                                <select style="width: 100%;" name="ProductFrom" id="product">
+                                                                    <?php
+                                                                    while ($product = mysqli_fetch_assoc($listProductForm)) {
+                                                                    ?>
+                                                                        <option class='product-item-<?php echo $product['Id']; ?>' value='<?php echo $product['Id'];  ?>'><?php echo $product['ProductName'];  ?></option>
+                                                                        <script>
+                                                                            $('.product-item-<?php echo $product['Id']; ?>').data(<?php $product['ProductName'];?>)
+                                                                        </script>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <span class="error-mess"></span>
+
+                                                        </div>
                                                         <div class="list-product">
                                                             <table class="table-form">
                                                                 <tr style="background-color: #bcbcbc; color:black;">

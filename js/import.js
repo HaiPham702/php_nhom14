@@ -16,6 +16,12 @@ $('.icon-delete-product').click(e => {
     $(e.target).parent().parent().remove()
 })
 
+$('#product').val('')
+
+$('#product').change(e => {
+    $(e).data()
+})
+
 function deletProductItem(e) {
     debugger
 }
